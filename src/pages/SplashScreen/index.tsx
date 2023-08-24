@@ -1,4 +1,4 @@
-import { LogoWhite } from '@assets';
+import { Logo } from '@assets';
 import { colors } from '@utils';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native';
 const SplashScreen = () => {
   return (
     <View style={styles.container}>
-      <LogoWhite />
+      <Logo />
     </View>
   );
 };

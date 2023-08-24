@@ -1,6 +1,6 @@
 const mainColors = {
-  purple: '#5142E6',
-  purple2: '#020518'
+  purple: '#6C5ECF',
+  purple2: '#1F1D2B'
 };
 
 export const colors = {
