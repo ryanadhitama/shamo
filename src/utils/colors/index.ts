@@ -6,6 +6,10 @@ const mainColors = {
 export const colors = {
   primary: mainColors.purple,
   secondary: mainColors.purple2,
-  white: 'white',
+  white: '#F1F0F2',
+  text: {
+    primary: '#F1F0F2',
+    secondary: '#504F5E'
+  },
   black: 'black'
 };
