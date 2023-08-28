@@ -11,5 +11,6 @@ export const colors = {
     primary: '#F1F0F2',
     secondary: '#504F5E'
   },
-  black: 'black'
+  black: 'black',
+  input: '#2B2937'
 };
