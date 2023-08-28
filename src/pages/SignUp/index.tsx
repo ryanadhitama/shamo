@@ -1,3 +1,4 @@
+import { Email, Lock, Name, Username } from '@assets';
 import { Button, Header, Input } from '@components';
 import { colors, fonts } from '@utils';
 import React from 'react';
@@ -10,10 +11,10 @@ const SignUp = ({ navigation }: any) => {
       <Header title="Sign Up" desc="Register and Happy Shoping" />
       <View style={styles.content}>
         <View style={styles.form}>
-          <Input label="Full Name" placeholder="Your Full Name" />
-          <Input label="Username" placeholder="Your Username" />
-          <Input label="Email Address" placeholder="Your Email Address" />
-          <Input secureTextEntry label="Password" placeholder="Your Password" />
+          <Input prefix={<Name />} label="Full Name" placeholder="Your Full Name" />
+          <Input prefix={<Username />} label="Username" placeholder="Your Username" />
+          <Input prefix={<Email />} label="Email Address" placeholder="Your Email Address" />
+          <Input prefix={<Lock />} secureTextEntry label="Password" placeholder="Your Password" />
           <Button title="Sign Up" />
         </View>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>

@@ -1,3 +1,4 @@
+import { Email, Lock } from '@assets';
 import { Button, Header, Input } from '@components';
 import { colors, fonts } from '@utils';
 import React from 'react';
@@ -10,8 +11,8 @@ const SignIn = ({ navigation }: any) => {
       <Header title="Login" desc="Sign In to Continue" />
       <View style={styles.content}>
         <View style={styles.form}>
-          <Input label="Email Address" placeholder="Your Email Address" />
-          <Input secureTextEntry label="Password" placeholder="Your Password" />
+          <Input prefix={<Email />} label="Email Address" placeholder="Your Email Address" />
+          <Input prefix={<Lock />} secureTextEntry label="Password" placeholder="Your Password" />
           <Button title="Sign In" />
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')} style={styles.link}>
