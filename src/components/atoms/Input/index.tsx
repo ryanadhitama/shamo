@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     fontFamily: fonts.primary.normal,
-    fontSize: 14
+    fontSize: 14,
+    color: colors.white
   }),
   label: {
     fontSize: 16,

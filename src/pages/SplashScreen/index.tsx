@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native';
 const SplashScreen = ({ navigation }: any) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('SignUp');
+      navigation.replace('SignIn');
     }, 2000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
