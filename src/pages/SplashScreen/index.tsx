@@ -1,12 +1,18 @@
 import { Logo } from '@assets';
-import { colors } from '@utils';
+import { colors, getData } from '@utils';
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 const SplashScreen = ({ navigation }: any) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('SignIn');
+      getData('token').then((res) => {
+        if (res) {
+          navigation.reset({ index: 0, routes: [{ name: 'MainApp' }] });
+        } else {
+          navigation.replace('SignIn');
+        }
+      });
     }, 2000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
