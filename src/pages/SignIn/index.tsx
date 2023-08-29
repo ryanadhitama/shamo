@@ -1,19 +1,44 @@
 import { Email, Lock } from '@assets';
 import { Button, Header, Input } from '@components';
-import { colors, fonts } from '@utils';
+import { colors, fonts, useForm } from '@utils';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDispatch } from 'react-redux';
+import { signInAction } from '../../redux/action';
 
 const SignIn = ({ navigation }: any) => {
+  const [form, setForm] = useForm({
+    email: '',
+    password: ''
+  });
+
+  const dispatch = useDispatch();
+
+  const onSubmit = () => {
+    dispatch(signInAction(form, navigation));
+  };
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Login" desc="Sign In to Continue" />
       <View style={styles.content}>
         <View style={styles.form}>
-          <Input prefix={<Email />} label="Email Address" placeholder="Your Email Address" />
-          <Input prefix={<Lock />} secureTextEntry label="Password" placeholder="Your Password" />
-          <Button title="Sign In" />
+          <Input
+            value={form.email}
+            onChangeText={(value: string) => setForm('email', value)}
+            prefix={<Email />}
+            label="Email Address"
+            placeholder="Your Email Address"
+          />
+          <Input
+            value={form.password}
+            onChangeText={(value: string) => setForm('password', value)}
+            prefix={<Lock />}
+            secureTextEntry
+            label="Password"
+            placeholder="Your Password"
+          />
+          <Button title="Sign In" onPress={onSubmit} />
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')} style={styles.link}>
           <Text style={styles.linkText}>
