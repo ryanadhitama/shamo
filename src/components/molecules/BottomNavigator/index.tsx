@@ -1,6 +1,5 @@
 import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
-import { colors } from '@utils';
 import { TabItem } from '../../atoms';
 
 export type BottomNavigatorProps = {
@@ -66,6 +65,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 53,
     paddingTop: 12,
     paddingBottom: Platform.OS === 'ios' ? 30 : 12,
-    backgroundColor: colors.secondary
+    backgroundColor: '#252836'
   }
 });
