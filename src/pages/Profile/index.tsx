@@ -71,6 +71,11 @@ const Profile = ({ navigation }: any) => {
       ]
     }
   ];
+
+  function getFirstWord(str: string) {
+    let spaceIndex = str.indexOf(' ');
+    return spaceIndex === -1 ? str : str.substring(0, spaceIndex);
+  }
   return (
     <SafeAreaView style={styles.container}>
       <Header
@@ -85,7 +90,7 @@ const Profile = ({ navigation }: any) => {
             <Logout />
           </TouchableOpacity>
         }
-        title={`Halo, ${user?.name}`}
+        title={`Halo, ${user?.name && getFirstWord(user?.name)}`}
         desc={`@${user?.username}`}
       />
       <View style={styles.content}>

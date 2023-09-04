@@ -15,15 +15,22 @@ const Home = ({ navigation }: any) => {
       });
     });
   }, [navigation]);
+
+  function getFirstWord(str: string) {
+    let spaceIndex = str.indexOf(' ');
+    return spaceIndex === -1 ? str : str.substring(0, spaceIndex);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Header
         suffix={
+          // eslint-disable-next-line react-native/no-inline-styles
           <View style={{ backgroundColor: '#38ABBE', borderRadius: 27 }}>
             <Avatar />
           </View>
         }
-        title={`Halo, ${user?.name}`}
+        title={`Halo, ${user?.name && getFirstWord(user?.name)}`}
         desc={`@${user?.username}`}
       />
     </SafeAreaView>

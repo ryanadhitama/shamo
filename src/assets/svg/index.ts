@@ -6,3 +6,5 @@ export { default as Username } from './username.svg';
 export { default as Avatar } from './avatar.svg';
 export { default as Logout } from './logout.svg';
 export { default as ChevronRight } from './chevron-right.svg';
+export { default as Check } from './check.svg';
+export { default as Close } from './close.svg';
