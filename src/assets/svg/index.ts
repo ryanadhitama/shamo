@@ -5,3 +5,4 @@ export { default as Name } from './name.svg';
 export { default as Username } from './username.svg';
 export { default as Avatar } from './avatar.svg';
 export { default as Logout } from './logout.svg';
+export { default as ChevronRight } from './chevron-right.svg';

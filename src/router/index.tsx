@@ -1,6 +1,15 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { Favorite, Home, Messages, Profile, SignIn, SignUp, SplashScreen } from '../pages';
+import {
+  EditProfile,
+  Favorite,
+  Home,
+  Messages,
+  Profile,
+  SignIn,
+  SignUp,
+  SplashScreen
+} from '../pages';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigator } from '@components';
 
@@ -9,6 +18,7 @@ export type RootStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
   MainApp: undefined;
+  EditProfile: undefined;
 };
 
 export type RootTabParamList = {
@@ -40,6 +50,11 @@ const Router = () => {
       <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
       <Stack.Screen name="MainApp" component={MainApp} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{ headerShown: false, presentation: 'modal' }}
+      />
     </Stack.Navigator>
   );
 };
