@@ -1,4 +1,4 @@
-import { Check, Close, Email, Name, Username } from '@assets';
+import { AvatarLarge, Check, Close, Email, Name, Username } from '@assets';
 import { AppHeader, Input } from '@components';
 import { colors, getData, showMessage, storeData, useForm } from '@utils';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -75,6 +75,9 @@ const EditProfile = ({ navigation }: any) => {
       />
       <View style={styles.content}>
         <View style={styles.form}>
+          <View style={styles.avatar}>
+            <AvatarLarge />
+          </View>
           <Input
             value={form.name}
             onChangeText={(value: string) => setForm('name', value)}
@@ -118,5 +121,8 @@ const styles = StyleSheet.create({
   },
   form: {
     gap: 30
+  },
+  avatar: {
+    alignItems: 'center'
   }
 });
