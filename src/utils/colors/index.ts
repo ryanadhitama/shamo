@@ -10,7 +10,8 @@ export const colors = {
   white: '#F1F0F2',
   text: {
     primary: '#F1F0F2',
-    secondary: '#504F5E'
+    secondary: '#504F5E',
+    tertiary: '#999999'
   },
   bg: {
     secondary: mainColors.purple3

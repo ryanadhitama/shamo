@@ -9,3 +9,6 @@ export { default as Logout } from './logout.svg';
 export { default as ChevronRight } from './chevron-right.svg';
 export { default as Check } from './check.svg';
 export { default as Close } from './close.svg';
+export { default as Cart } from './cart.svg';
+export { default as Headset } from './headset.svg';
+export { default as Love } from './love.svg';
