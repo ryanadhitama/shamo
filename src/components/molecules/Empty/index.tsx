@@ -1,6 +1,6 @@
 import { Headset, Love } from '@assets';
 import { colors, fonts } from '@utils';
-import { Button } from '@components';
+import Button from '../../atoms/Button';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 

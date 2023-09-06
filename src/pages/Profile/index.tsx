@@ -77,7 +77,7 @@ const Profile = ({ navigation }: any) => {
     return spaceIndex === -1 ? str : str.substring(0, spaceIndex);
   }
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <Header
         prefix={
           // eslint-disable-next-line react-native/no-inline-styles

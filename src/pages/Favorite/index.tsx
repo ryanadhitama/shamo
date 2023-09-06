@@ -6,7 +6,7 @@ import React from 'react';
 
 const Favorite = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <AppHeader title="Favorite Shoes" />
       <FlatList
         style={styles.list}

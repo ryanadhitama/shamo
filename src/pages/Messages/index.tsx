@@ -8,7 +8,7 @@ import { Text } from 'react-native-svg';
 
 const Messages = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <AppHeader title="Message Support" />
       <FlatList
         style={styles.list}

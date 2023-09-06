@@ -1,13 +1,38 @@
+import {
+  Chat,
+  ChatActive,
+  Home,
+  HomeActive,
+  Profile,
+  ProfileActive,
+  Union,
+  UnionActive
+} from '@assets';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { fonts } from '@utils';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 type TabItemType = { title: string; active: boolean; onPress: () => void; onLongPress: () => void };
 
 const TabItem = ({ title, active, onPress, onLongPress }: TabItemType) => {
+  // eslint-disable-next-line react/no-unstable-nested-components
+  const Icon = () => {
+    if (title === 'Home') {
+      return active ? <HomeActive /> : <Home />;
+    }
+    if (title === 'Messages') {
+      return active ? <ChatActive /> : <Chat />;
+    }
+    if (title === 'Favorite') {
+      return active ? <UnionActive /> : <Union />;
+    }
+    if (title === 'Profile') {
+      return active ? <ProfileActive /> : <Profile />;
+    }
+    return <Profile />;
+  };
   return (
     <TouchableOpacity style={styles.container} onPress={onPress} onLongPress={onLongPress}>
-      <Text style={styles.text(active)}>{title}</Text>
+      <Icon />
     </TouchableOpacity>
   );
 };
@@ -15,10 +40,5 @@ const TabItem = ({ title, active, onPress, onLongPress }: TabItemType) => {
 export default TabItem;
 
 const styles = StyleSheet.create({
-  container: { alignItems: 'center' },
-  text: () => ({
-    fontSize: 10,
-    fontFamily: fonts.primary[600],
-    marginTop: 4
-  })
+  container: { alignItems: 'center' }
 });
