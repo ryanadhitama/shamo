@@ -1,6 +1,6 @@
 # Shamo - Mobile Ecommerce
 
-## How to use
+## How to setup
 
 - Install dependecies
 
