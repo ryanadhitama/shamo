@@ -9,7 +9,21 @@ export const getCategories = () => (dispatch?: any) => {
     })
     .catch((err: any) => {
       showMessage(
-        `${err?.response?.data?.message} on Category API` || 'Terjadi kesalahan di API Food',
+        `${err?.response?.data?.message} on Category API` || 'Terjadi kesalahan di API Category',
+        'error'
+      );
+    });
+};
+
+export const getPopularProducts = () => (dispatch?: any) => {
+  Axios.get(`${API_HOST.url}/products?tags=popular`)
+    .then((res: any) => {
+      dispatch({ type: 'SET_POPULAR', value: res.data.data.data });
+    })
+    .catch((err: any) => {
+      showMessage(
+        `${err?.response?.data?.message} on Popular Product API` ||
+          'Terjadi kesalahan di API Products',
         'error'
       );
     });

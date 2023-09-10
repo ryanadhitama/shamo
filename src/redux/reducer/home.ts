@@ -1,5 +1,6 @@
 const initHome = {
-  categories: []
+  categories: [],
+  popular: []
 };
 
 export const homeReducer = (state = initHome, action: any) => {
@@ -7,6 +8,13 @@ export const homeReducer = (state = initHome, action: any) => {
     return {
       ...state,
       categories: action.value
+    };
+  }
+
+  if (action.type === 'SET_POPULAR') {
+    return {
+      ...state,
+      popular: action.value
     };
   }
 

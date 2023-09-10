@@ -1,19 +1,19 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Avatar } from '@assets';
-import { Gap, Header } from '@components';
+import { FeaturedCard, Gap, Header } from '@components';
 import { colors, fonts, getData } from '@utils';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories } from 'redux/action';
+import { getCategories, getPopularProducts } from 'redux/action';
 
 const Home = ({ navigation }: any) => {
   const [user, setUser] = useState<any>();
   const dispatch = useDispatch();
   const [category, setCategory] = useState('');
-  const { categories } = useSelector((state: any) => state.homeReducer);
+  const { categories, popular } = useSelector((state: any) => state.homeReducer);
 
   useEffect(() => {
     navigation.addListener('focus', () => {
@@ -21,6 +21,7 @@ const Home = ({ navigation }: any) => {
         setUser(res);
       });
       dispatch(getCategories());
+      dispatch(getPopularProducts());
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
@@ -67,6 +68,22 @@ const Home = ({ navigation }: any) => {
         <Text style={styles.title}>Popular Products</Text>
       </View>
       <Gap height={14} />
+      <ScrollView
+        contentContainerStyle={styles.popularContent}
+        style={styles.popular}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      >
+        {popular?.map((product: any) => (
+          <FeaturedCard
+            name={product?.name}
+            category={product?.category?.name}
+            price={product?.price}
+            image={product?.galleries[0]?.url}
+            key={`featured-${product?.id}`}
+          />
+        ))}
+      </ScrollView>
       <Gap height={30} />
       <View style={styles.content}>
         <Text style={styles.title}>New Arrivals</Text>
@@ -114,5 +131,12 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[500],
     borderColor: colors.primary,
     color: colors.white
+  },
+  popular: {
+    flexGrow: 0
+  },
+  popularContent: {
+    gap: 16,
+    paddingLeft: 30
   }
 });
