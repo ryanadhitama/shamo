@@ -63,30 +63,35 @@ const Home = ({ navigation }: any) => {
         ))}
       </ScrollView>
 
+      {category === '' && (
+        <>
+          <Gap height={30} />
+          <View style={styles.content}>
+            <Text style={styles.title}>Popular Products</Text>
+          </View>
+          <Gap height={14} />
+          <ScrollView
+            contentContainerStyle={styles.popularContent}
+            style={styles.popular}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          >
+            {popular?.map((product: any) => (
+              <FeaturedCard
+                name={product?.name}
+                category={product?.category?.name}
+                price={product?.price}
+                image={product?.galleries[0]?.url}
+                key={`featured-${product?.id}`}
+              />
+            ))}
+          </ScrollView>
+        </>
+      )}
+
       <Gap height={30} />
       <View style={styles.content}>
-        <Text style={styles.title}>Popular Products</Text>
-      </View>
-      <Gap height={14} />
-      <ScrollView
-        contentContainerStyle={styles.popularContent}
-        style={styles.popular}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      >
-        {popular?.map((product: any) => (
-          <FeaturedCard
-            name={product?.name}
-            category={product?.category?.name}
-            price={product?.price}
-            image={product?.galleries[0]?.url}
-            key={`featured-${product?.id}`}
-          />
-        ))}
-      </ScrollView>
-      <Gap height={30} />
-      <View style={styles.content}>
-        <Text style={styles.title}>New Arrivals</Text>
+        <Text style={styles.title}>{category === '' ? 'New Arrivals' : 'For You'}</Text>
       </View>
       <Gap height={14} />
     </SafeAreaView>
