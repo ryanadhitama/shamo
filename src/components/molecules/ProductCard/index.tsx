@@ -1,8 +1,8 @@
-import { fonts, numberWithCommas } from '@utils';
+import { colors, fonts, numberWithCommas } from '@utils';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
-const FeaturedCard = ({ name, category, image, price }: any) => {
+const ProductCard = ({ name, category, image, price }: any) => {
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={{ uri: image }} />
@@ -15,15 +15,11 @@ const FeaturedCard = ({ name, category, image, price }: any) => {
   );
 };
 
-export default FeaturedCard;
+export default ProductCard;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ECEDEF',
-    width: 215,
-    height: 278,
-    borderRadius: 20,
-    overflow: 'hidden'
+    flexDirection: 'row'
   },
   content: {
     padding: 20
@@ -36,18 +32,21 @@ const styles = StyleSheet.create({
   price: {
     color: '#2C96F1',
     fontSize: 14,
-    fontFamily: fonts.primary[600]
+    fontFamily: fonts.primary[500]
   },
   title: {
     marginVertical: 6,
-    color: '#2E2E2E',
+    color: colors.white,
     fontFamily: fonts.primary[600],
-    fontSize: 18,
+    fontSize: 16,
     textTransform: 'uppercase'
   },
   image: {
-    width: 215,
-    height: 165,
+    borderRadius: 20,
+    overflow: 'hidden',
+    width: 120,
+    height: 120,
+    backgroundColor: '#ECEDEF',
     objectFit: 'cover'
   }
 });

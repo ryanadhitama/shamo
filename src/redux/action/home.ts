@@ -28,3 +28,17 @@ export const getPopularProducts = () => (dispatch?: any) => {
       );
     });
 };
+
+export const getNewestProducts = (category?: string) => (dispatch?: any) => {
+  Axios.get(`${API_HOST.url}/products?${category ? `categories=${category}` : 'tags=new'}`)
+    .then((res: any) => {
+      dispatch({ type: 'SET_PRODUCTS', value: res.data.data.data });
+    })
+    .catch((err: any) => {
+      showMessage(
+        `${err?.response?.data?.message} on Popular Product API` ||
+          'Terjadi kesalahan di API Products',
+        'error'
+      );
+    });
+};

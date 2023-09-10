@@ -1,6 +1,7 @@
 const initHome = {
   categories: [],
-  popular: []
+  popular: [],
+  products: []
 };
 
 export const homeReducer = (state = initHome, action: any) => {
@@ -15,6 +16,13 @@ export const homeReducer = (state = initHome, action: any) => {
     return {
       ...state,
       popular: action.value
+    };
+  }
+
+  if (action.type === 'SET_PRODUCTS') {
+    return {
+      ...state,
+      products: action.value
     };
   }
 

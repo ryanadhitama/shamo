@@ -1,30 +1,37 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Avatar } from '@assets';
-import { FeaturedCard, Gap, Header } from '@components';
+import { FeaturedCard, Gap, Header, ProductCard } from '@components';
 import { colors, fonts, getData } from '@utils';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, getPopularProducts } from 'redux/action';
+import { getCategories, getNewestProducts, getPopularProducts } from 'redux/action';
 
 const Home = ({ navigation }: any) => {
   const [user, setUser] = useState<any>();
   const dispatch = useDispatch();
   const [category, setCategory] = useState('');
-  const { categories, popular } = useSelector((state: any) => state.homeReducer);
+  const { categories, popular, products } = useSelector((state: any) => state.homeReducer);
 
   useEffect(() => {
     navigation.addListener('focus', () => {
       getData('userProfile').then((res) => {
         setUser(res);
       });
+      setCategory('');
       dispatch(getCategories());
       dispatch(getPopularProducts());
+      dispatch(getNewestProducts(''));
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
+
+  useEffect(() => {
+    dispatch(getNewestProducts(category));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category]);
 
   function getFirstWord(str: string) {
     let spaceIndex = str.indexOf(' ');
@@ -33,67 +40,80 @@ const Home = ({ navigation }: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header
-        suffix={
-          // eslint-disable-next-line react-native/no-inline-styles
-          <View style={{ backgroundColor: '#38ABBE', borderRadius: 27 }}>
-            <Avatar />
-          </View>
-        }
-        title={`Halo, ${user?.name && getFirstWord(user?.name)}`}
-        desc={`@${user?.username}`}
-      />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header
+          suffix={
+            // eslint-disable-next-line react-native/no-inline-styles
+            <View style={{ backgroundColor: '#38ABBE', borderRadius: 27 }}>
+              <Avatar />
+            </View>
+          }
+          title={`Halo, ${user?.name && getFirstWord(user?.name)}`}
+          desc={`@${user?.username}`}
+        />
 
-      <ScrollView
-        contentContainerStyle={styles.categoriesContent}
-        style={styles.categories}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      >
-        <TouchableOpacity onPress={() => setCategory('')}>
-          <Text style={[styles.category, !category && styles.categoryActive]}>All Shoes</Text>
-        </TouchableOpacity>
-
-        {categories?.map((cat: any, i: number) => (
-          <TouchableOpacity onPress={() => setCategory(cat?.id)} key={`tag-${i}`}>
-            <Text style={[styles.category, category === cat?.id && styles.categoryActive]}>
-              {cat?.name}
-            </Text>
+        <ScrollView
+          contentContainerStyle={styles.categoriesContent}
+          style={styles.categories}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        >
+          <TouchableOpacity onPress={() => setCategory('')}>
+            <Text style={[styles.category, !category && styles.categoryActive]}>All Shoes</Text>
           </TouchableOpacity>
-        ))}
+
+          {categories?.map((cat: any, i: number) => (
+            <TouchableOpacity onPress={() => setCategory(cat?.id)} key={`tag-${i}`}>
+              <Text style={[styles.category, category === cat?.id && styles.categoryActive]}>
+                {cat?.name}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
+        {category === '' && (
+          <>
+            <Gap height={30} />
+            <View style={styles.content}>
+              <Text style={styles.title}>Popular Products</Text>
+            </View>
+            <Gap height={14} />
+            <ScrollView
+              contentContainerStyle={styles.popularContent}
+              style={styles.popular}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            >
+              {popular?.map((product: any) => (
+                <FeaturedCard
+                  name={product?.name}
+                  category={product?.category?.name}
+                  price={product?.price}
+                  image={product?.galleries[0]?.url}
+                  key={`featured-${product?.id}`}
+                />
+              ))}
+            </ScrollView>
+          </>
+        )}
+
+        <Gap height={30} />
+        <View style={styles.content}>
+          <Text style={styles.title}>{category === '' ? 'New Arrivals' : 'For You'}</Text>
+        </View>
+        <Gap height={14} />
+        <View style={styles.products}>
+          {products?.map((product: any) => (
+            <ProductCard
+              name={product?.name}
+              category={product?.category?.name}
+              price={product?.price}
+              image={product?.galleries[0]?.url}
+              key={`list-${product?.id}`}
+            />
+          ))}
+        </View>
       </ScrollView>
-
-      {category === '' && (
-        <>
-          <Gap height={30} />
-          <View style={styles.content}>
-            <Text style={styles.title}>Popular Products</Text>
-          </View>
-          <Gap height={14} />
-          <ScrollView
-            contentContainerStyle={styles.popularContent}
-            style={styles.popular}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-          >
-            {popular?.map((product: any) => (
-              <FeaturedCard
-                name={product?.name}
-                category={product?.category?.name}
-                price={product?.price}
-                image={product?.galleries[0]?.url}
-                key={`featured-${product?.id}`}
-              />
-            ))}
-          </ScrollView>
-        </>
-      )}
-
-      <Gap height={30} />
-      <View style={styles.content}>
-        <Text style={styles.title}>{category === '' ? 'New Arrivals' : 'For You'}</Text>
-      </View>
-      <Gap height={14} />
     </SafeAreaView>
   );
 };
@@ -143,5 +163,10 @@ const styles = StyleSheet.create({
   popularContent: {
     gap: 16,
     paddingLeft: 30
+  },
+  products: {
+    paddingHorizontal: 30,
+    paddingBottom: 30,
+    gap: 30
   }
 });
