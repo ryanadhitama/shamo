@@ -1,22 +1,32 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { fonts, colors } from '@utils';
 
 export type HeaderProps = {
   title?: string;
   desc?: string;
+  suffix?: ReactNode;
+  prefix?: ReactNode;
 };
 
 const Header = ({
   title,
-  desc
+  desc,
+  suffix,
+  prefix
 }: HeaderProps & {
   type?: string;
 }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.desc}>{desc}</Text>
+      <View style={styles.left}>
+        {prefix && prefix}
+        <View>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.desc}>{desc}</Text>
+        </View>
+      </View>
+      {suffix ? suffix : null}
     </View>
   );
 };
@@ -26,7 +36,10 @@ export default Header;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 30,
-    paddingVertical: 30
+    paddingVertical: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   title: {
     letterSpacing: 1.2,
@@ -41,5 +54,10 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7,
     fontFamily: fonts.primary.normal,
     color: colors.text.secondary
+  },
+  left: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16
   }
 });

@@ -62,9 +62,12 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 53,
-    paddingTop: 12,
-    paddingBottom: Platform.OS === 'ios' ? 30 : 12,
+    paddingHorizontal: 30,
+    paddingTop: 30,
+    marginTop: -25,
+    borderTopLeftRadius: 25,
+    borderStartEndRadius: 25,
+    paddingBottom: Platform.OS === 'ios' ? 40 : 22,
     backgroundColor: '#252836'
   }
 });
