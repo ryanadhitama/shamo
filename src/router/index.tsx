@@ -5,6 +5,7 @@ import {
   Favorite,
   Home,
   Messages,
+  ProductDetail,
   Profile,
   SignIn,
   SignUp,
@@ -19,6 +20,10 @@ export type RootStackParamList = {
   SignUp: undefined;
   MainApp: undefined;
   EditProfile: undefined;
+  ProductDetail: {
+    id: number;
+    name: string;
+  };
 };
 
 export type RootTabParamList = {
@@ -54,6 +59,11 @@ const Router = () => {
         name="EditProfile"
         component={EditProfile}
         options={{ headerShown: false, presentation: 'modal' }}
+      />
+      <Stack.Screen
+        name="ProductDetail"
+        component={ProductDetail}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

@@ -1,17 +1,33 @@
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { fonts, numberWithCommas } from '@utils';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { RootStackParamList } from 'router';
 
-const FeaturedCard = ({ name, category, image, price }: any) => {
+type ProductDetailNavigationProp = StackNavigationProp<RootStackParamList, 'ProductDetail'>;
+
+const FeaturedCard = ({ id, name, category, image, price }: any) => {
+  const navigation = useNavigation<ProductDetailNavigationProp>();
   return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: image }} />
-      <View style={styles.content}>
-        <Text style={styles.category}>{category}</Text>
-        <Text style={styles.title}>{name}</Text>
-        <Text style={styles.price}>Rp{numberWithCommas(price)}</Text>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('ProductDetail', {
+          id,
+          name
+        })
+      }
+    >
+      <View style={styles.container}>
+        <Image style={styles.image} source={{ uri: image }} />
+        <View style={styles.content}>
+          <Text style={styles.category}>{category}</Text>
+          <Text style={styles.title}>{name}</Text>
+          <Text style={styles.price}>Rp{numberWithCommas(price)}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

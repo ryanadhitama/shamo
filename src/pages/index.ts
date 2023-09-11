@@ -6,3 +6,4 @@ export { default as Messages } from './Messages';
 export { default as Favorite } from './Favorite';
 export { default as Profile } from './Profile';
 export { default as EditProfile } from './EditProfile';
+export { default as ProductDetail } from './ProductDetail';
