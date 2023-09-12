@@ -17,5 +17,7 @@ export const colors = {
     secondary: mainColors.purple3
   },
   black: 'black',
-  input: '#2B2937'
+  input: '#2B2937',
+  blue: '#2C96F1',
+  gray: '#999999'
 };

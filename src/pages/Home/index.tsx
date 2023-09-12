@@ -90,6 +90,7 @@ const Home = ({ navigation }: any) => {
                   category={product?.category?.name}
                   price={product?.price}
                   image={product?.galleries[0]?.url}
+                  description={product?.description}
                   id={product?.id}
                   key={`featured-${product?.id}`}
                 />
@@ -110,6 +111,7 @@ const Home = ({ navigation }: any) => {
               category={product?.category?.name}
               price={product?.price}
               image={product?.galleries[0]?.url}
+              description={product?.description}
               id={product?.id}
               key={`list-${product?.id}`}
             />
