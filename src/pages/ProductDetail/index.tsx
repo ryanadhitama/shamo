@@ -1,22 +1,66 @@
+import { ChevronLeft, Wishlist, WishlistActive } from '@assets';
 import { Button } from '@components';
-import { colors, fonts, numberWithCommas } from '@utils';
-import React from 'react';
+import { colors, fonts, getData, numberWithCommas, storeData } from '@utils';
+import React, { useEffect, useState } from 'react';
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ProductDetail = ({ navigation, route }: any) => {
   const { id, name, description, image, category, price } = route.params;
+  const [liked, setLiked] = useState<boolean>(false);
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      getData('wishlist').then((res) => {
+        if (!res) {
+          storeData('wishlist', []);
+        } else {
+          const arr = res;
+          if (arr.includes(id)) {
+            setLiked(true);
+          }
+        }
+      });
+    });
+  }, [id, navigation]);
+
+  const addWishlist = () => {
+    getData('wishlist').then((res) => {
+      if (res?.includes(id)) {
+        const arr = res;
+        var index = arr.indexOf(id);
+        if (index !== -1) {
+          arr.splice(index, 1);
+        }
+        storeData('wishlist', arr);
+        setLiked(false);
+      } else {
+        const arr = res;
+        arr.push(id);
+        storeData('wishlist', arr);
+        setLiked(true);
+      }
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <ImageBackground source={{ uri: image[0] }} style={styles.cover}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text>Back {id}</Text>
+          <ChevronLeft />
         </TouchableOpacity>
       </ImageBackground>
       <View style={styles.body}>
-        <Text style={styles.title}>{name}</Text>
-        <Text style={styles.category}>{category}</Text>
+        <View style={styles.bodyTitle}>
+          <View>
+            <Text style={styles.title}>{name}</Text>
+            <Text style={styles.category}>{category}</Text>
+          </View>
+          <TouchableOpacity onPress={() => addWishlist()}>
+            {liked ? <WishlistActive /> : <Wishlist />}
+          </TouchableOpacity>
+        </View>
         <View style={styles.price}>
           <Text style={styles.priceLabel}>Price starts from</Text>
           <Text style={styles.priceAmount}>Rp {numberWithCommas(price)}</Text>
@@ -36,10 +80,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between'
-    // backgroundColor: colors.secondary
   },
   cover: {
-    height: 350
+    height: 350,
+    paddingTop: 20,
+    paddingHorizontal: 30
   },
   body: {
     flex: 1,
@@ -47,6 +92,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 24,
     padding: 30,
     backgroundColor: colors.secondary
+  },
+  bodyTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   title: {
     color: colors.white,

@@ -20,3 +20,6 @@ export { default as Union } from './union.svg';
 export { default as UnionActive } from './union-active.svg';
 export { default as Profile } from './profile.svg';
 export { default as ProfileActive } from './profile-active.svg';
+export { default as ChevronLeft } from './chevron-left.svg';
+export { default as Wishlist } from './wishlist.svg';
+export { default as WishlistActive } from './wishlist-active.svg';
