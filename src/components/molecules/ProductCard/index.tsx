@@ -8,7 +8,7 @@ import { RootStackParamList } from 'router';
 
 type ProductDetailNavigationProp = StackNavigationProp<RootStackParamList, 'ProductDetail'>;
 
-const ProductCard = ({ id, name, category, image, price, description }: any) => {
+const ProductCard = ({ id, name, categoryId, category, image, price, description }: any) => {
   const navigation = useNavigation<ProductDetailNavigationProp>();
   return (
     <TouchableOpacity
@@ -19,7 +19,8 @@ const ProductCard = ({ id, name, category, image, price, description }: any) => 
           category,
           description,
           image: [image],
-          price
+          price,
+          categoryId
         })
       }
     >

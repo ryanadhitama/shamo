@@ -87,6 +87,7 @@ const Home = ({ navigation }: any) => {
               {popular?.map((product: any) => (
                 <FeaturedCard
                   name={product?.name}
+                  categoryId={product?.category?.id}
                   category={product?.category?.name}
                   price={product?.price}
                   image={product?.galleries[0]?.url}
@@ -109,6 +110,7 @@ const Home = ({ navigation }: any) => {
             <ProductCard
               name={product?.name}
               category={product?.category?.name}
+              categoryId={product?.category?.id}
               price={product?.price}
               image={product?.galleries[0]?.url}
               description={product?.description}

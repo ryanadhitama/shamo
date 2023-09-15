@@ -26,6 +26,7 @@ export type RootStackParamList = {
     price: number;
     description: string;
     category: string;
+    categoryId: number;
     image: string[];
   };
 };

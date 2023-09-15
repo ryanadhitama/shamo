@@ -3,6 +3,7 @@ import { colors, fonts } from '@utils';
 import Button from '../../atoms/Button';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export type EmptyProps = {
   title?: string;
@@ -20,13 +21,15 @@ const Empty = ({ title, desc, type }: EmptyProps) => {
     return <Headset />;
   };
 
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Icon />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.desc}>{desc}</Text>
       <View style={styles.button}>
-        <Button title="Explore Store" />
+        <Button title="Explore Store" onPress={() => navigation.replace('MainApp')} />
       </View>
     </View>
   );

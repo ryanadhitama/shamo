@@ -2,13 +2,17 @@ import { ChevronLeft, Wishlist, WishlistActive } from '@assets';
 import { Button } from '@components';
 import { colors, fonts, getData, numberWithCommas, storeData } from '@utils';
 import React, { useEffect, useState } from 'react';
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Dimensions, Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRelatedProducts } from 'redux/action';
 
 const ProductDetail = ({ navigation, route }: any) => {
-  const { id, name, description, image, category, price } = route.params;
+  const { id, name, description, image, category, price, categoryId } = route.params;
   const [liked, setLiked] = useState<boolean>(false);
+  const { relatedProducts } = useSelector((state: any) => state.productReducer);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     navigation.addListener('focus', () => {
@@ -22,7 +26,9 @@ const ProductDetail = ({ navigation, route }: any) => {
           }
         }
       });
+      dispatch(getRelatedProducts(id, categoryId));
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, navigation]);
 
   const addWishlist = () => {
@@ -67,7 +73,32 @@ const ProductDetail = ({ navigation, route }: any) => {
         </View>
         <Text style={styles.subtitle}>Description</Text>
         <Text style={styles.description}>{description}</Text>
-        <Text style={styles.subtitle}>Familiar Shoes</Text>
+
+        {relatedProducts?.length > 0 ? (
+          <>
+            <Text style={styles.subtitle}>Familiar Shoes</Text>
+            <ScrollView horizontal style={{ flexGrow: 0 }} contentContainerStyle={styles.familiar}>
+              {relatedProducts?.map((r: any) => (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.replace('ProductDetail', {
+                      id: r?.id,
+                      name: r?.name,
+                      category: r?.category?.name,
+                      description: r?.description,
+                      image: r?.galleries?.map((rg: any) => rg?.url),
+                      price: r?.price,
+                      categoryId: r?.category?.id
+                    })
+                  }
+                  key={`r-${r?.id}`}
+                >
+                  <Image style={styles.familiarItem} source={{ uri: r?.galleries[0]?.url }} />
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </>
+        ) : null}
         <Button title="Add to Cart" />
       </View>
     </SafeAreaView>
@@ -87,7 +118,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30
   },
   body: {
-    flex: 1,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: Dimensions.get('window').width,
+    minHeight: Dimensions.get('window').height - 350,
     borderTopStartRadius: 24,
     borderTopRightRadius: 24,
     padding: 30,
@@ -138,5 +173,14 @@ const styles = StyleSheet.create({
     color: colors.blue,
     fontSize: 16,
     fontFamily: fonts.primary[600]
+  },
+  familiar: {
+    gap: 16,
+    marginBottom: 30
+  },
+  familiarItem: {
+    width: 54,
+    height: 54,
+    borderRadius: 8
   }
 });
