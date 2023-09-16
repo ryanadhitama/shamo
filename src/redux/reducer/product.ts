@@ -1,5 +1,6 @@
 const initHome = {
-  relatedProducts: []
+  relatedProducts: [],
+  favoriteProducts: []
 };
 
 export const productReducer = (state = initHome, action: any) => {
@@ -7,6 +8,13 @@ export const productReducer = (state = initHome, action: any) => {
     return {
       ...state,
       relatedProducts: action.value
+    };
+  }
+
+  if (action.type === 'SET_FAVORITE_PRODUCTS') {
+    return {
+      ...state,
+      favoriteProducts: action.value
     };
   }
 
